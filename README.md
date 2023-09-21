@@ -6,13 +6,13 @@ Projeto que visa melhorar o match entre recrutadores de empresas parceiras e est
 Clone o projeto:
 
 ```bash
-  git clone https://github.com/{SEU USUARIO}/devit-mentoria.git
+  git clone https://github.com/{SEU USUARIO}/devit-se-frontend.git
 ```
 
 Entre no diretório do projeto:
 
 ```bash
-  cd devit-mentoria/
+  cd devit-se-frontend/
 ```
 
 Instale as dependências:
