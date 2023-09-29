@@ -39,4 +39,7 @@ export const StyledError = styled(ErrorMessage)`
     color: #ff0000;
     font-size: 12px;
 `;
-
+export const StyledLabelError = styled(StyledLabel)`
+    margin-left: 5px;
+    height: 15px;
+`;
