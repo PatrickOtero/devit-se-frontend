@@ -1,4 +1,4 @@
-import { Field as FieldComponent } from "formik";
+import { ErrorMessage, Field as FieldComponent } from "formik";
 import styled from "styled-components";
 
 export const ContainerInput = styled.div`
@@ -33,7 +33,10 @@ export const StyledLabel = styled.label`
     height: 15px;
 `;
 
-export const StyledLabelError = styled(StyledLabel)`
+export const StyledError = styled(ErrorMessage)`
     margin-left: 5px;
     height: 15px;
+    color: #ff0000;
+    font-size: 12px;
 `;
+

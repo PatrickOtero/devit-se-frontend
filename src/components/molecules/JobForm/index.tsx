@@ -1,6 +1,6 @@
 "use client";
 
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikProps } from "formik";
 import InputForm from "../../atoms/InputForm/index";
 import {
   ContainerForm,
@@ -13,10 +13,11 @@ import {
   ContainerModalButtons,
 } from "./style";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import * as Yup from "yup";
 
-export default function JobPostingForm() {
+export default function JobForm() {
+  const formRef = useRef<FormikProps<any>>(null);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   function handleOpenModal() {
@@ -28,7 +29,27 @@ export default function JobPostingForm() {
   }
 
   function handleSubmit() {
-    alert("Vaga cadastrada com sucesso!");
+    formRef.current?.resetForm();
+    formRef.current?.submitForm();
+  }
+
+  function callbackCanalDivulgacao(value: string) {
+    console.log(value);
+    if (value === "Devit-se") {
+      document.getElementById("form_empresa")!.style.display = "block";
+    } else {
+      document.getElementById("form_empresa")!.style.display = "none";
+    }
+  }
+  function callbackFormatoVaga(value: string) {
+    console.log(value);
+    if (value === "Home Office") {
+      document.getElementById("form_empresa")!.style.display = "none";
+      document.getElementById("semana")!.style.display = "none";
+    } else {
+      document.getElementById("form_empresa")!.style.display = "block";
+      document.getElementById("semana")!.style.display = "block";
+    }
   }
 
   const customStyles = {
@@ -78,9 +99,19 @@ export default function JobPostingForm() {
   };
 
   const selectOptions = {
-    titulo: ["Titulo", "UX Designer", "UI Designer", "Product Designer", "Dev. Front-End", "Dev. Back-End", "Full Stack", "Agilista","Quality Assurance"],
+    titulo: [
+      "Titulo",
+      "UX Designer",
+      "UI Designer",
+      "Product Designer",
+      "Dev. Front-End",
+      "Dev. Back-End",
+      "Full Stack",
+      "Agilista",
+      "Quality Assurance",
+    ],
     nivel: ["Nível", "Júnior", "Pleno", "Senior"],
-    formatoVaga: ["Formato da vaga", "Presencial", "Remoto", "Híbrido"],
+    formatoVaga: ["Formato da vaga", "Presencial", "Home Office", "Híbrido"],
     canalDivulgacao: [
       "Canal de Divulgação",
       "Devit-se",
@@ -111,6 +142,18 @@ export default function JobPostingForm() {
     nota: ["Pontuação", "Nível 1", "Nível 2", "Nível 3", "Nível 4", "Nível 5"],
   };
 
+  const validationSchema = Yup.object().shape({
+    titulo: Yup.string().required("Campo obrigatório"),
+    nivel: Yup.string().required("Campo obrigatório"),
+    formatoVaga: Yup.string().required("Campo obrigatório"),
+    canal: Yup.string().required("Campo obrigatório"),
+    link: Yup.string().required("Campo obrigatório"),
+    empresa: Yup.string().required("Campo obrigatório"),
+    status: Yup.string().required("Campo obrigatório"),
+    data: Yup.string().required("Campo obrigatório"),
+    data2: Yup.string().required("Campo obrigatório"),
+  });
+
   return (
     <>
       <Modal
@@ -133,12 +176,14 @@ export default function JobPostingForm() {
       </Modal>
 
       <Formik
+        innerRef={formRef}
         initialValues={initialValues}
         onSubmit={(values, actions) => {
           console.log(values);
           alert(JSON.stringify(values, null, 2));
           actions.setSubmitting(false);
         }}
+        validationSchema={validationSchema}
       >
         <Form>
           <ContainerForm>
@@ -154,7 +199,7 @@ export default function JobPostingForm() {
                 name="titulo"
                 placeholder="Selecione o título da vaga aqui"
                 label="Titulo da vaga*"
-                width="100%"
+                width="220px"
                 as="select"
                 options={selectOptions.titulo}
               />
@@ -179,6 +224,7 @@ export default function JobPostingForm() {
                 width="200px"
                 as="select"
                 options={selectOptions.formatoVaga}
+                callback={callbackFormatoVaga}
               />
             </div>
 
@@ -194,9 +240,10 @@ export default function JobPostingForm() {
                 type="select"
                 placeholder="Selecione um canal"
                 label="Canal de Divulgação*"
-                width="200px"
+                width="220px"
                 as="select"
                 options={selectOptions.canalDivulgacao}
+                callback={callbackCanalDivulgacao}
               />
 
               <InputForm
@@ -215,7 +262,7 @@ export default function JobPostingForm() {
               type="text"
               placeholder="Descrever o nome da empresa aqui"
               label="Empresa*"
-              width="675px"
+              width="750px"
             />
 
             <InputForm
@@ -241,6 +288,7 @@ export default function JobPostingForm() {
                 placeholder=""
                 label="Data de Divulgação*"
                 width="200px"
+                minDate={new Date().toISOString().split("T")[0]}
               />
 
               <span style={{ width: "100px" }}></span>
@@ -252,10 +300,11 @@ export default function JobPostingForm() {
                 placeholder=""
                 label="Data de finalização"
                 width="200px"
+                minDate={new Date().toISOString().split("T")[0]}
               />
             </div>
           </ContainerForm>
-          <ContainerForm>
+          <ContainerForm id="form_empresa">
             <ContainerTitle>Empresa</ContainerTitle>
             <InputForm
               id="empresa"
@@ -263,7 +312,7 @@ export default function JobPostingForm() {
               type="text"
               placeholder="Nome da Empresa"
               label="Empresa"
-              width="100%"
+              width="750px"
             />
 
             <div
@@ -281,7 +330,7 @@ export default function JobPostingForm() {
                   id="cnpj"
                   name="cnpj"
                   label="CNPJ"
-                  placeholder="Número da empresa"
+                  placeholder="00.000.000/0001-00"
                   width="200px"
                 />
               </div>
@@ -309,7 +358,7 @@ export default function JobPostingForm() {
                   name="outros"
                   placeholder="outros"
                   label=""
-                  width="100%"
+                  width="100px"
                 />
               </div>
             </div>
@@ -359,7 +408,7 @@ export default function JobPostingForm() {
                   type="text"
                   placeholder="bairro"
                   label=""
-                  width="100%"
+                  width="100px"
                 />
               </div>
             </div>
@@ -370,7 +419,7 @@ export default function JobPostingForm() {
               type="text"
               placeholder="Nome do Responsável pela vaga"
               label="Responsável"
-              width="100%"
+              width="750px"
             />
             <div
               style={{
@@ -465,6 +514,7 @@ export default function JobPostingForm() {
                 width="200px"
                 as="select"
                 options={selectOptions.periodicidadeVaga}
+                callback={callbackFormatoVaga}
               />
             </div>
             <div
