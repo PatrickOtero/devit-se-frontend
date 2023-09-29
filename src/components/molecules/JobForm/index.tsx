@@ -51,6 +51,22 @@ export default function JobForm() {
       document.getElementById("semana")!.style.display = "block";
     }
   }
+  function callbackOutros(value: string) {
+    console.log(value);
+    if (value === "Outros") {
+      document.getElementById("outro_contrato")!.style.display = "block";
+    } else {
+      document.getElementById("outro_contrato")!.style.display = "none";
+    }
+  }
+  function callbackSetor(value: string) {
+    console.log(value);
+    if (value === "Outros") {
+      document.getElementById("outro_setor")!.style.display = "block";
+    } else {
+      document.getElementById("outro_setor")!.style.display = "none";
+    }
+  }
 
   const customStyles = {
     content: {
@@ -152,6 +168,11 @@ export default function JobForm() {
     status: Yup.string().required("Campo obrigatório"),
     data: Yup.string().required("Campo obrigatório"),
     data2: Yup.string().required("Campo obrigatório"),
+    email1: Yup.string().required("").matches( /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, "E-mail inválido"),
+    email2: Yup.string().required("").matches( /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, "E-mail inválido"),
+    telefone1: Yup.string().required("").length(11, "Telefone inválido"),
+    telefone2: Yup.string().required("").length(11, "Telefone inválido"),
+    cnpj: Yup.string().required("").length(14, "CNPJ inválido"),
   });
 
   return (
@@ -216,7 +237,7 @@ export default function JobForm() {
               />
 
               <InputForm
-                id="formato"
+                id="formatoVaga"
                 name="formato"
                 type="text"
                 placeholder="Formato da vaga"
@@ -311,7 +332,7 @@ export default function JobForm() {
               name="empresa"
               type="text"
               placeholder="Nome da Empresa"
-              label="Empresa"
+              label="Empresa*"
               width="750px"
             />
 
@@ -346,6 +367,8 @@ export default function JobForm() {
                   width="100%"
                   as="select"
                   options={selectOptions.setores}
+                  callback={callbackSetor}
+                 
                 />
               </div>
               <div
@@ -354,8 +377,8 @@ export default function JobForm() {
                 }}
               >
                 <InputForm
-                  id="outros"
-                  name="outros"
+                  id="outro_setor"
+                  name="Outros"
                   placeholder="outros"
                   label=""
                   width="100px"
@@ -379,7 +402,7 @@ export default function JobForm() {
                   id="logradouro"
                   name="logradouro"
                   label="Endereço"
-                  placeholder="Logradouro"
+                  placeholder="Rua, Avenida, Praça, Nº, Bloco "
                   width="100%"
                 />
               </div>
@@ -393,7 +416,7 @@ export default function JobForm() {
                   name="complemento"
                   type="text"
                   placeholder="Complemento"
-                  label=""
+                  label="Complemento"
                   width="100%"
                 />
               </div>
@@ -407,7 +430,7 @@ export default function JobForm() {
                   name="bairro"
                   type="text"
                   placeholder="bairro"
-                  label=""
+                  label="Bairro"
                   width="100px"
                 />
               </div>
@@ -428,20 +451,20 @@ export default function JobForm() {
               }}
             >
               <InputForm
-                id="email"
+                id="email1"
                 name="email1"
                 type="email"
                 placeholder="E-mail do responsável pela vaga"
-                label="E-mail"
+                label="E-mail 1"
                 width="300px"
               />
 
               <InputForm
-                id="email"
+                id="email2"
                 name="email2"
                 type="email"
                 placeholder="E-mail do responsável pela vaga"
-                label="E-mail"
+                label="E-mail 2"
                 width="300px"
               />
             </div>
@@ -452,19 +475,19 @@ export default function JobForm() {
               }}
             >
               <InputForm
-                id="nome"
+                id="telefone1"
                 name="telefone1"
                 type="text"
-                placeholder="Telefone do Responsável pela vaga"
-                label="Telefone 1*"
+                placeholder="(00) 00000-0000"
+                label="Telefone 1"
                 width="300px"
               />
 
               <InputForm
-                id="nome"
+                id="telefone2"
                 name="telefone2"
                 label="Telefone2"
-                placeholder="Telefone do Responsável pela vaga"
+                placeholder="(00) 00000-0000"
                 width="300px"
               />
             </div>
@@ -500,11 +523,13 @@ export default function JobForm() {
 
               <InputForm
                 id="formatoVaga"
-                name="formatoVaga"
+                name="formato"
                 label="Formato da vaga"
+                placeholder="Formato da vaga"
                 width="200px"
                 as="select"
                 options={selectOptions.formatoVaga}
+                callback={callbackFormatoVaga}
               />
 
               <InputForm
@@ -530,22 +555,25 @@ export default function JobForm() {
                 width="200px"
                 as="select"
                 options={selectOptions.tipoContrato}
+                callback={callbackOutros}
+              
               />
 
               <InputForm
-                id="outros"
-                name="outroContrato"
+                id="outro_contrato"
+                name="outro"
                 type="text"
                 placeholder="Outro"
                 label=""
                 width="200px"
+                
               />
 
               <InputForm
                 id="nome"
                 name="salario"
                 type="text"
-                placeholder="Insira o salário aqui"
+                placeholder="R$ 000,00"
                 label="Salário"
                 width="200px"
               />
@@ -554,9 +582,9 @@ export default function JobForm() {
               id="nome"
               name="beneficios"
               type="text"
-              placeholder="Descrever os benefícios aqui"
+              placeholder="Plano de Saúde; Vale Alimentação; Seguro de Vida; Vale Refeição"
               label="Benefícios"
-              width="100%"
+              width="750px"
             />
             <InputForm
               id="nome"
@@ -564,23 +592,23 @@ export default function JobForm() {
               type="text"
               placeholder="Inserir a descrição da vaga aqui"
               label="Descrição da vaga aqui"
-              width="100%"
+              width="750px"
             />
             <InputForm
               id="nome"
               name="softSkills"
               type="text"
-              placeholder="Listar soft skills em tópicos"
+              placeholder="Autorresponsabilidade; Flexibilidade; Inteligência Emocional; Facilitação"
               label="Requisitos (Soft Skills)"
-              width="100%"
+              width="750px"
             />
             <InputForm
               id="nome"
               name="hardSkills"
               type="text"
-              placeholder="Listar hard skills em tópicos"
+              placeholder="JavaScript; Springboot; NodeJS"
               label="Requisitos (Hard Skills)*"
-              width="100%"
+              width="750px"
             />
             <InputForm
               id="marte"
