@@ -1,9 +1,9 @@
-import JobForm from '../components/molecules/JobForm/index'
+import JobForm from "../components/molecules/JobForm/index";
 
 export default function Home() {
   return (
     <>
-    <JobForm></JobForm> 
+      <JobForm/>
     </>
-  )
+  );
 }
