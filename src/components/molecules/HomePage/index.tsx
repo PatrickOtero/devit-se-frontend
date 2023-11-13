@@ -1,4 +1,5 @@
 "use client";
+import ScoreCard from "@/components/atoms/ScoreCard";
 import {
   Menu,
   MenuItem,
@@ -17,13 +18,7 @@ export default function HomePage() {
       </Navbar>
       <PageBody>
         <SideBar>
-          <SideBar1>
-            Nota Devit
-            <br />
-            Estrelinha 3.0
-            <br />
-            Como aprimorar minha nota
-          </SideBar1>
+          <ScoreCard/>
           <br />
           <SideBar2>
             <Menu nome="Home"></Menu>
