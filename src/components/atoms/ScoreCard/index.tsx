@@ -1,13 +1,14 @@
+import Image from "next/image";
+
 import {
     ContainerCard, 
     Title,
     Text,
     ContainerScore,
     Score
-  } from "./style";
+} from "./style";
 
 import star from '../../../../public/star.svg'
-import Image from "next/image";
 
 export default function ScoreCard() {
     return (

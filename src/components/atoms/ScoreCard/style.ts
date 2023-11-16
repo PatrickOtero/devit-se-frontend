@@ -31,7 +31,7 @@ export const ContainerScore = styled.div`
     border-radius: 12px;
     background: rgba(0, 0, 0, 0.79);
     margin-top: 16px;
-    margin-bottom: 4px;
+    margin-bottom: 8px;
 `
 
 export const Score = styled.p`
@@ -47,4 +47,5 @@ export const Text = styled.p`
     font-weight: 300;
     line-height: 23px;
     letter-spacing: 0.5px;
+    cursor: pointer;
 `
