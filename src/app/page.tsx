@@ -1,4 +1,4 @@
-import HomePage from '@/components/molecules/HomePage'
+import HomePage from '@/pages/Jobs'
 import JobForm from '../components/molecules/JobForm/index'
 import '../../src/styles/global.css'
 
