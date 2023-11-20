@@ -58,7 +58,7 @@ export default function SideBarMenu() {
         },
         { 
             icon: settingsIcon,
-            text: 'Mentoria',
+            text: 'Configurações',
             alt: "Icone de uma engranagem",
             expanded: false,
         },
