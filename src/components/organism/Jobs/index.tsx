@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/organism/Header";
-import SideBarMenu from "../../components/molecules/SideBarMenu";
+import SideBarMenu from "../../molecules/SideBarMenu";
 
 import {
   PageBody,
