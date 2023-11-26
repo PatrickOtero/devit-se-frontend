@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import {
-    ContainerCard, 
+    ContainerCard,
     Title,
     Text,
     ContainerScore,
@@ -15,13 +15,13 @@ export default function ScoreCard() {
         <ContainerCard>
             <Title>Nota Devit</Title>
             <ContainerScore>
-                <Image 
+                <Image
                     src={star}
                     alt="Uma estrela branca"
                 />
                 <Score>5.0</Score>
             </ContainerScore>
-            <Text>Como manter minha nota</Text>
+            <Text>Como manter minha nota?</Text>
         </ContainerCard>
     )
 }
