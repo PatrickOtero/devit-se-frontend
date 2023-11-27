@@ -11,9 +11,9 @@ import bookIcon from "../../../../public/sideBarMenu/book.png"
 import folderIcon from "../../../../public/sideBarMenu/folder.png"
 import settingsIcon from "../../../../public/sideBarMenu/settings.png"
 
-import { 
-    ContainerMenu, 
-    ContainerSideBar 
+import {
+    ContainerMenu,
+    ContainerSideBar
 } from "./style";
 
 interface MenuItem {
@@ -33,36 +33,36 @@ export default function SideBarMenu() {
             alt: "icone de uma casa",
             expanded: false,
         },
-        { 
+        {
             icon: profileIcon,
-            text: 'Área do aluno', 
-            alt: 'Icone de um boneco', 
+            text: 'Área do aluno',
+            alt: 'Icone de um boneco',
             expanded: false,
         },
-        { 
+        {
             icon: bookIcon,
-            text: 'Mentoria', 
-            alt: 'Icone de um livro', 
+            text: 'Mentoria',
+            alt: 'Icone de um livro',
             expanded: false,
         },
-        { 
+        {
             icon: folderIcon,
             text: 'Vagas',
-            alt: 'Um icone de pasta', 
-            expanded: false, 
-            subItems: 
+            alt: 'Um icone de pasta',
+            expanded: false,
+            subItems:
                 [
-                'Minhas vagas', 
-                'Currículo'
-                ] 
+                    'Minhas vagas',
+                    'Currículo'
+                ]
         },
-        { 
+        {
             icon: settingsIcon,
             text: 'Configurações',
             alt: "Icone de uma engranagem",
             expanded: false,
         },
-        { 
+        {
             text: 'Sobre a Devit',
             expanded: false,
         },
@@ -82,7 +82,7 @@ export default function SideBarMenu() {
 
             <ContainerMenu>
                 {menuItems.map((menuItem, index) => (
-                    <MenuItem 
+                    <MenuItem
                         key={index}
                         icon={menuItem.icon}
                         alt={menuItem.alt || ""}
@@ -92,7 +92,7 @@ export default function SideBarMenu() {
                         }}
                     >
                         {menuItem.expanded && menuItem.subItems && (
-                            <SubMenuExpand 
+                            <SubMenuExpand
                                 array={menuItem.subItems}
                             />
                         )}
