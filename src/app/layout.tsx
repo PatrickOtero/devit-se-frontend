@@ -8,7 +8,7 @@ const roboto = Roboto({
 });
 
 interface RootLayoutProps {
-  children: React.ReactNode;
+  readonly children: React.ReactNode;
 }
 
 export const metadata = {

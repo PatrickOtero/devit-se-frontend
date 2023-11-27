@@ -3,10 +3,6 @@ import '../../src/styles/global.css'
 
 export default function Home() {
   return (
-    <>
-
-      <HomePage></HomePage>
-
-    </>
+    <HomePage></HomePage>
   )
 }
