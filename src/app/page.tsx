@@ -1,5 +1,4 @@
 import HomePage from '@/components/organism/Jobs'
-import JobForm from '../components/molecules/JobForm/index'
 import '../../src/styles/global.css'
 
 export default function Home() {
@@ -7,7 +6,7 @@ export default function Home() {
     <>
 
       <HomePage></HomePage>
-      {/* <JobForm></JobForm>  */}
+
     </>
   )
 }

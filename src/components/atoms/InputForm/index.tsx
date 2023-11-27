@@ -3,18 +3,18 @@ import { Label } from "./label";
 import { ContainerInput, Field, StyledError } from "./style";
 
 interface InputFormProps {
-  id: string;
-  name: string;
-  type?: string;
-  placeholder?: string;
-  label: string;
-  width: string;
-  height?: string;
-  as?: string;
-  options?: Array<string>;
-  minDate?: string;
-  maxDate?: string;
-  callback?: (value: string) => void;
+  readonly id: string;
+  readonly name: string;
+  readonly type?: string;
+  readonly placeholder?: string;
+  readonly label: string;
+  readonly width: string;
+  readonly height?: string;
+  readonly as?: string;
+  readonly options?: string[];
+  readonly minDate?: string;
+  readonly maxDate?: string;
+  readonly callback?: (value: string) => void;
 }
 
 export default function InputForm({
@@ -30,21 +30,20 @@ export default function InputForm({
   minDate,
   maxDate,
   callback,
-}: InputFormProps) {
+}: InputFormProps): JSX.Element {
   const [field] = useField(name);
 
-  const handleSelectChange = (event: any) => {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (callback) {
       callback(event.target.value);
     }
-
     field.onChange(event);
   };
 
   return (
     <ContainerInput>
       <Label htmlFor={id} name={label} />
-      {as === "select" ? (
+      {as === "select" && (
         <>
           <Field
             id={id}
@@ -63,7 +62,8 @@ export default function InputForm({
           </Field>
           <StyledError name={name} component="span" />
         </>
-      ) : (
+      )}
+      {as !== "select" && (
         <>
           <Field
             id={id}
@@ -75,7 +75,6 @@ export default function InputForm({
             min={minDate}
             max={maxDate}
           />
-
           <StyledError name={name} component="span" />
         </>
       )}

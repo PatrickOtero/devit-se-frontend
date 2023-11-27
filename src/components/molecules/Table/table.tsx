@@ -1,8 +1,7 @@
 
 "use client";
 
-import { useState, FormEvent, ChangeEvent } from "react";
-import { MagnifyingGlass } from '@phosphor-icons/react'
+import { useState, ChangeEvent } from "react";
 import {
     StyledTable,
     StyledTableTr,
@@ -17,7 +16,6 @@ import {
     ContainerButtons,
     ButtonsArrow,
     ButtonsNumbers,
-    ActivePageStyle
 } from "./style";
 
 type DataProps = {
@@ -58,27 +56,27 @@ export const Table = ({ data }: TableProps) => {
         const currentDate = new Date();
 
         switch (filter) {
-            case 'maisRecente':
+            case 'maisRecente': {
                 return data.sort((a, b) => b.dataDeInscricao.getTime() - a.dataDeInscricao.getTime())
-
-            case 'maisAntigo':
+            }
+            case 'maisAntigo': {
                 return data.sort((a, b) => a.dataDeInscricao.getTime() - b.dataDeInscricao.getTime())
-
-            case 'ultimos7Dias':
+            }
+            case 'ultimos7Dias': {
                 const sevenDaysAgo = new Date(currentDate);
                 sevenDaysAgo.setDate(currentDate.getDate() - 7);
                 return data.filter(item => item.dataDeInscricao >= sevenDaysAgo);
-
-            case 'ultimos15Dias':
+            }
+            case 'ultimos15Dias': {
                 const fifteenDaysAgo = new Date(currentDate);
                 fifteenDaysAgo.setDate(currentDate.getDate() - 15);
                 return data.filter(item => item.dataDeInscricao >= fifteenDaysAgo);
-
-            case 'ultimos30Dias':
+            }
+            case 'ultimos30Dias': {
                 const thirtyDaysAgo = new Date(currentDate);
                 thirtyDaysAgo.setDate(currentDate.getDate() - 30);
                 return data.filter(item => item.dataDeInscricao >= thirtyDaysAgo);
-
+            }
             default:
                 return data;
 
@@ -91,7 +89,7 @@ export const Table = ({ data }: TableProps) => {
     );
 
     // Ordena os dados com base na coluna "Status"
-    const sortedData = filteredData.sort((a: DataProps, b: DataProps) => a.status.localeCompare(b.status));
+    const sortedData = [...filteredData].sort((a: DataProps, b: DataProps) => a.status.localeCompare(b.status));
 
     //Filtra os dados com base na seleção de filtro de data
 
